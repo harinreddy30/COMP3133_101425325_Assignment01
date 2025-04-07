@@ -4,6 +4,10 @@ require("dotenv").config();
 const { ApolloServer } = require("apollo-server-micro");
 const typeDefs = require("../schema/typeDefs");
 const resolvers = require("../schema/resolvers");
+const connectDB = require("../config/db");
+
+// Connect to MongoDB Atlas
+connectDB();
 
 const apolloServer = new ApolloServer({
   typeDefs,
@@ -14,7 +18,6 @@ const apolloServer = new ApolloServer({
 const startServer = apolloServer.start();
 
 module.exports = async function handler(req, res) {
-  // Allow pre-flight OPTIONS requests
   if (req.method === "OPTIONS") {
     res.end();
     return false;
