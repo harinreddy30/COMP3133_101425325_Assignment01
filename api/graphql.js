@@ -1,5 +1,3 @@
-// File: /api/graphql.js
-
 require("dotenv").config();
 const { ApolloServer } = require("apollo-server-micro");
 const typeDefs = require("../schema/typeDefs");
@@ -18,12 +16,14 @@ const apolloServer = new ApolloServer({
 const startServer = apolloServer.start();
 
 module.exports = async function handler(req, res) {
+  // Handle pre-flight CORS requests
   if (req.method === "OPTIONS") {
     res.end();
-    return false;
+    return;
   }
   await startServer;
-  await apolloServer.createHandler({ path: "/api/graphql" })(req, res);
+  // Use "/" since the function is mounted at /api/graphql already
+  return apolloServer.createHandler({ path: "/" })(req, res);
 };
 
 module.exports.config = {
