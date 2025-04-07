@@ -2,7 +2,7 @@
   "name": "comp3133_101425325_assignment1",
   "version": "1.0.0",
   "scripts": {
-    "dev": "vercel dev",
+    "local": "vercel dev",
     "start": "vercel dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,7 +14,8 @@
     "apollo-server-micro": "^3.13.0",
     "dotenv": "^16.4.7",
     "graphql": "^16.10.0",
-    "mongoose": "^8.10.1"
+    "mongoose": "^8.10.1",
+    "serverless-http": "^3.2.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

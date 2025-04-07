@@ -1,19 +1,22 @@
-const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv");
+const jwt = require('jsonwebtoken');
 
-dotenv.config();
+const auth = (context) => {
+    const authHeader = context.req.headers.authorization;
+    if (!authHeader) {
+        throw new Error('Authorization header must be provided');
+    }
 
-module.exports = (req) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    throw new Error("Authentication token is missing!");
-  }
+    const token = authHeader.split('Bearer ')[1];
+    if (!token) {
+        throw new Error('Authentication token must be Bearer [token]');
+    }
 
-  try {
-    const token = authHeader.split(" ")[1]; 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    return decoded; 
-  } catch (err) {
-    throw new Error("Invalid or expired token!");
-  }
+    try {
+        const user = jwt.verify(token, 'your_jwt_secret');
+        return user;
+    } catch (err) {
+        throw new Error('Invalid/Expired token');
+    }
 };
+
+module.exports = auth; 

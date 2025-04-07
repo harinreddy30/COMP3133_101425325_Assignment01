@@ -1,0 +1,30 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "api/graphql.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/graphql",
+        "dest": "api/graphql.js",
+        "methods": ["GET", "POST", "OPTIONS"],
+        "headers": {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+          "Access-Control-Allow-Credentials": "true"
+        }
+      },
+      {
+        "src": "/(.*)",
+        "dest": "api/graphql.js"
+      }
+    ],
+    "env": {
+      "NODE_ENV": "production",
+      "MONGODB_URI": "mongodb+srv://admin:harin123@cluster0.pujm6.mongodb.net/db_user_management?retryWrites=true&w=majority&appName=Cluster0"
+    }
+  }
+  
